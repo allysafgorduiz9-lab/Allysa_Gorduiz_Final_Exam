@@ -8,7 +8,7 @@
         :root {
             --emerald: #10b981;
             --emerald-dark: #059669;
-            --bg-light: #f8fafc; /* Lighter background shading toward white */
+            --bg-light: #f8fafc; 
             --glass-white: rgba(255, 255, 255, 0.8);
             --border: rgba(0, 0, 0, 0.05);
             --text-main: #1e293b;
@@ -111,7 +111,6 @@
         }
 
         .btn:hover { background: var(--emerald-dark); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); }
-        .btn-cancel { background: #f1f5f9; color: var(--text-muted); margin-left: 10px; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; }
 
         /* 3. STUDENT LIST TABLE */
         .table-wrapper { overflow-x: auto; border-radius: 12px; }
@@ -143,52 +142,13 @@
 
     <div class="container">
 
-        <!-- 2. HOMEPAGE SECTION -->
+        <!-- 2. HOMEPAGE HERO SECTION -->
         <section class="hero">
             <h1>Student Management System</h1>
-            <p>IT318 Web Development</p>
+            <p>IT318 Web Development | SLSU - Hinunangan</p>
         </section>
 
-        <!-- 3. EDIT STUDENT FORM -->
-        <% if (editStudent) { %>
-        <section id="edit-form" class="card" style="border: 2px solid #3b82f6;">
-            <h2>Update Records</h2>
-            <form action="/update/<%= editStudent.id %>" method="POST">
-                <div class="form-grid">
-                    <div class="input-box">
-                        <label>Student ID</label>
-                        <input type="text" name="student_id" value="<%= editStudent.student_id %>" required>
-                    </div>
-                    <div class="input-box">
-                        <label>Full Name</label>
-                        <input type="text" name="full_name" value="<%= editStudent.full_name %>" required>
-                    </div>
-                    <div class="input-box">
-                        <label>Course</label>
-                        <input type="text" name="course" value="<%= editStudent.course %>" required>
-                    </div>
-                    <div class="input-box">
-                        <label>Year Level</label>
-                        <select name="year_level">
-                            <option <%= editStudent.year_level == '1st Year' ? 'selected' : '' %>>1st Year</option>
-                            <option <%= editStudent.year_level == '2nd Year' ? 'selected' : '' %>>2nd Year</option>
-                            <option <%= editStudent.year_level == '3rd Year' ? 'selected' : '' %>>3rd Year</option>
-                            <option <%= editStudent.year_level == '4th Year' ? 'selected' : '' %>>4th Year</option>
-                        </select>
-                    </div>
-                    <div class="input-box">
-                        <label>Email Address</label>
-                        <input type="email" name="email_address" value="<%= editStudent.email_address %>" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn">Save Changes</button>
-                <a href="/" class="btn-cancel">Cancel</a>
-            </form>
-        </section>
-        <% } %>
-
-        <!-- 4. STUDENT REGISTRATION FORM -->
-        <% if (!editStudent) { %>
+        <!-- 3. STUDENT REGISTRATION FORM (Always visible) -->
         <section id="registration" class="card">
             <h2>Add New Student</h2>
             <form action="/add" method="POST">
@@ -222,9 +182,8 @@
                 <button type="submit" class="btn">Register Student</button>
             </form>
         </section>
-        <% } %>
 
-        <!-- 5. STUDENT LIST TABLE -->
+        <!-- 4. STUDENT LIST TABLE -->
         <section id="table" class="card">
             <h2>Student List Table</h2>
             <div class="table-wrapper">
