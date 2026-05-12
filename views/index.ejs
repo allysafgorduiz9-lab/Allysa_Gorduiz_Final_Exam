@@ -7,23 +7,29 @@
     <style>
         :root {
             --emerald: #10b981;
-            --midnight: #0f172a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
+            --emerald-dark: #059669;
+            --bg-light: #f8fafc; /* Lighter background shading toward white */
+            --glass-white: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.05);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
         }
 
         body {
-            background: var(--midnight);
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            background-image: radial-gradient(at 0% 0%, hsla(161, 71%, 90%, 1) 0, transparent 50%), 
+                              radial-gradient(at 50% 0%, hsla(210, 100%, 96%, 1) 0, transparent 50%);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             margin: 0;
             scroll-behavior: smooth;
+            min-height: 100vh;
         }
 
         /* 1. NAVIGATION MENU */
         nav {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 15px 50px;
             display: flex;
@@ -32,11 +38,12 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        nav .brand { font-size: 1.4rem; font-weight: bold; color: var(--emerald); text-decoration: none; }
+        nav .brand { font-size: 1.4rem; font-weight: 800; color: var(--emerald-dark); text-decoration: none; letter-spacing: -0.5px; }
         nav ul { list-style: none; display: flex; gap: 25px; margin: 0; }
-        nav ul li a { color: #f8fafc; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        nav ul li a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
         nav ul li a:hover { color: var(--emerald); }
 
         .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
@@ -44,79 +51,89 @@
         /* 2. HOMEPAGE HERO SECTION */
         .hero {
             text-align: center;
-            padding: 60px 20px;
-            background: var(--glass);
-            border-radius: 20px;
+            padding: 50px 20px;
+            background: var(--glass-white);
+            border-radius: 24px;
             border: 1px solid var(--border);
             margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .hero p { color: #94a3b8; font-size: 1.1rem; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 10px; color: var(--text-main); }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; }
 
         /* CARDS & FORMS */
         .card {
-            background: var(--glass);
+            background: var(--glass-white);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 35px;
             margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
 
-        h2 { color: var(--emerald); margin-bottom: 25px; font-size: 1.5rem; border-left: 4px solid var(--emerald); padding-left: 15px; }
+        h2 { color: var(--text-main); margin-bottom: 25px; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        h2::before { content: ""; width: 4px; height: 24px; background: var(--emerald); border-radius: 4px; display: inline-block; }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
         }
 
         .input-box { display: flex; flex-direction: column; gap: 8px; }
-        .input-box label { font-size: 0.8rem; color: #94a3b8; }
+        .input-box label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
         
         input, select {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid #334155;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 10px;
             outline: none;
+            transition: all 0.2s;
         }
 
-        input:focus { border-color: var(--emerald); }
+        input:focus { border-color: var(--emerald); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
 
         .btn {
             background: var(--emerald);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
             cursor: pointer;
             margin-top: 20px;
             transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
 
-        .btn:hover { background: #059669; transform: translateY(-2px); }
-        .btn-cancel { background: #475569; margin-left: 10px; text-decoration: none; font-size: 0.9rem; color: white; padding: 12px 20px; border-radius: 8px; }
+        .btn:hover { background: var(--emerald-dark); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); }
+        .btn-cancel { background: #f1f5f9; color: var(--text-muted); margin-left: 10px; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; }
 
         /* 3. STUDENT LIST TABLE */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { text-align: left; padding: 15px; color: var(--emerald); border-bottom: 2px solid #1e293b; font-size: 0.85rem; text-transform: uppercase; }
-        td { padding: 15px; border-bottom: 1px solid #1e293b; font-size: 0.9rem; }
+        .table-wrapper { overflow-x: auto; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 18px; color: var(--text-muted); border-bottom: 2px solid #f1f5f9; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        td { padding: 18px; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; }
 
-        .badge { background: rgba(16, 185, 129, 0.1); color: var(--emerald); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
-        .actions a { text-decoration: none; font-weight: bold; margin-right: 15px; font-size: 0.85rem; }
-        .edit-link { color: #60a5fa; }
-        .delete-link { color: #f87171; }
+        .badge { background: #ecfdf5; color: var(--emerald-dark); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+        .actions a { text-decoration: none; font-weight: 700; margin-right: 20px; font-size: 0.85rem; transition: 0.2s; }
+        .edit-link { color: #3b82f6; }
+        .edit-link:hover { color: #1d4ed8; }
+        .delete-link { color: #ef4444; }
+        .delete-link:hover { color: #b91c1c; }
+
+        tr:hover { background-color: rgba(16, 185, 129, 0.02); }
     </style>
 </head>
 <body>
 
     <!-- 1. NAVIGATION MENU -->
     <nav>
-        <a href="/" class="brand">SIMS PRO</a>
+        <a href="/" class="brand">STUDENT PORTAL</a>
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="#registration">Register</a></li>
@@ -128,14 +145,14 @@
 
         <!-- 2. HOMEPAGE SECTION -->
         <section class="hero">
-            <h1>Student Information System</h1>
-            <p>IT318 Final Practical Examination - Web Development</p>
+            <h1>Student Management System</h1>
+            <p>IT318 Web Development • Final Examination</p>
         </section>
 
-        <!-- 3. EDIT STUDENT FORM (Only shows when editing) -->
+        <!-- 3. EDIT STUDENT FORM -->
         <% if (editStudent) { %>
-        <section id="edit-form" class="card" style="border: 1px solid #60a5fa;">
-            <h2>Edit Student Form</h2>
+        <section id="edit-form" class="card" style="border: 2px solid #3b82f6;">
+            <h2>Update Records</h2>
             <form action="/update/<%= editStudent.id %>" method="POST">
                 <div class="form-grid">
                     <div class="input-box">
@@ -164,25 +181,25 @@
                         <input type="email" name="email_address" value="<%= editStudent.email_address %>" required>
                     </div>
                 </div>
-                <button type="submit" class="btn">Update Records</button>
+                <button type="submit" class="btn">Save Changes</button>
                 <a href="/" class="btn-cancel">Cancel</a>
             </form>
         </section>
         <% } %>
 
-        <!-- 4. STUDENT REGISTRATION FORM (Always visible unless editing) -->
+        <!-- 4. STUDENT REGISTRATION FORM -->
         <% if (!editStudent) { %>
         <section id="registration" class="card">
-            <h2>Student Registration Form</h2>
+            <h2>Add New Student</h2>
             <form action="/add" method="POST">
                 <div class="form-grid">
                     <div class="input-box">
                         <label>Student ID</label>
-                        <input type="text" name="student_id" placeholder="e.g. 2024-0001" required>
+                        <input type="text" name="student_id" placeholder="e.g. 2024-1001" required>
                     </div>
                     <div class="input-box">
                         <label>Full Name</label>
-                        <input type="text" name="full_name" placeholder="John Doe" required>
+                        <input type="text" name="full_name" placeholder="Juan Dela Cruz" required>
                     </div>
                     <div class="input-box">
                         <label>Course</label>
@@ -199,7 +216,7 @@
                     </div>
                     <div class="input-box">
                         <label>Email Address</label>
-                        <input type="email" name="email_address" placeholder="john@example.com" required>
+                        <input type="email" name="email_address" placeholder="juan@university.edu" required>
                     </div>
                 </div>
                 <button type="submit" class="btn">Register Student</button>
@@ -210,29 +227,29 @@
         <!-- 5. STUDENT LIST TABLE -->
         <section id="table" class="card">
             <h2>Student List Table</h2>
-            <div style="overflow-x: auto;">
+            <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Student ID</th>
                             <th>Full Name</th>
                             <th>Course</th>
-                            <th>Year</th>
-                            <th>Email</th>
+                            <th>Year Level</th>
+                            <th>Email Address</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% students.forEach(student => { %>
                         <tr>
-                            <td><%= student.student_id %></td>
+                            <td><strong><%= student.student_id %></strong></td>
                             <td><%= student.full_name %></td>
                             <td><span class="badge"><%= student.course %></span></td>
                             <td><%= student.year_level %></td>
                             <td><%= student.email_address %></td>
                             <td class="actions">
                                 <a href="/edit/<%= student.id %>" class="edit-link">Edit</a>
-                                <a href="/delete/<%= student.id %>" class="delete-link" onclick="return confirm('Delete this student?')">Delete</a>
+                                <a href="/delete/<%= student.id %>" class="delete-link" onclick="return confirm('Remove this student record?')">Delete</a>
                             </td>
                         </tr>
                         <% }) %>
