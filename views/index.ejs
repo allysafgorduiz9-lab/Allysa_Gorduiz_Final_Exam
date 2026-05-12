@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information System</title>
+    <style>
+        :root { --emerald: #10b981; --midnight: #0f172a; }
+        body { background: var(--midnight); color: #f8fafc; font-family: 'Inter', sans-serif; padding: 40px; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; margin-bottom: 30px; }
+        .btn { background: var(--emerald); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        input, select { background: #1e293b; border: 1px solid #334155; color: white; padding: 10px; border-radius: 6px; margin: 5px; width: 200px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--emerald); padding: 15px; border-bottom: 2px solid #1e293b; }
+        td { padding: 15px; border-bottom: 1px solid #1e293b; }
+        .action-link { color: #f87171; text-decoration: none; margin-right: 10px; font-weight: bold; }
+        .edit-link { color: #60a5fa; text-decoration: none; font-weight: bold; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="glass">
+        <h2><%= editStudent ? 'Edit Student Form' : 'Student Registration Form' %></h2>
+        <form action="<%= editStudent ? '/update/' + editStudent.id : '/add' %>" method="POST">
+            <input type="text" name="student_id" placeholder="Student ID" value="<%= editStudent ? editStudent.student_id : '' %>" required>
+            <input type="text" name="full_name" placeholder="Full Name" value="<%= editStudent ? editStudent.full_name : '' %>" required>
+            <input type="text" name="course" placeholder="Course" value="<%= editStudent ? editStudent.course : '' %>" required>
+            <select name="year_level">
+                <option <%= editStudent && editStudent.year_level == '1st Year' ? 'selected' : '' %>>1st Year</option>
+                <option <%= editStudent && editStudent.year_level == '2nd Year' ? 'selected' : '' %>>2nd Year</option>
+                <option <%= editStudent && editStudent.year_level == '3rd Year' ? 'selected' : '' %>>3rd Year</option>
+                <option <%= editStudent && editStudent.year_level == '4th Year' ? 'selected' : '' %>>4th Year</option>
+            </select>
+            <input type="email" name="email_address" placeholder="Email Address" value="<%= editStudent ? editStudent.email_address : '' %>" required>
+            <button type="submit" class="btn"><%= editStudent ? 'Update Student' : 'Register Student' %></button>
+            <% if(editStudent) { %> <a href="/" style="color:white; margin-left:10px;">Cancel</a> <% } %>
+        </form>
+    </div>
+
+    <div class="glass">
+        <h2>Student List Table</h2>
+        <table>
+            <tr>
+                <th>Student ID</th><th>Full Name</th><th>Course</th><th>Year</th><th>Email</th><th>Actions</th>
+            </tr>
+            <% students.forEach(student => { %>
+            <tr>
+                <td><%= student.student_id %></td>
+                <td><%= student.full_name %></td>
+                <td><%= student.course %></td>
+                <td><%= student.year_level %></td>
+                <td><%= student.email_address %></td>
+                <td>
+                    <a href="/edit/<%= student.id %>" class="edit-link">Edit</a>
+                    <a href="/delete/<%= student.id %>" class="action-link" onclick="return confirm('Delete this record?')">Delete</a>
+                </td>
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>
