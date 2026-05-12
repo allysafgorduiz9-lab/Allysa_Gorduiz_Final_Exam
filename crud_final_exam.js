@@ -32,11 +32,11 @@ db.query(tableQuery, (err) => {
     else console.log("Database table 'students' is ready.");
 });
 
-// READ: View all students
+// READ: View all students (Homepage)
 app.get('/', (req, res) => {
     db.query('SELECT * FROM students', (err, results) => {
         if (err) return res.status(500).send("Database Error");
-        res.render('index', { students: results, editStudent: null });
+        res.render('index', { students: results }); // Removed editStudent null
     });
 });
 
@@ -52,12 +52,12 @@ app.get('/delete/:id', (req, res) => {
     db.query('DELETE FROM students WHERE id = ?', [req.params.id], () => res.redirect('/'));
 });
 
-// UPDATE: Fetch student for edit
+// UPDATE: Fetch student for dedicated edit page
 app.get('/edit/:id', (req, res) => {
-    db.query('SELECT * FROM students', (err, allStudents) => {
-        db.query('SELECT * FROM students WHERE id = ?', [req.params.id], (err, record) => {
-            res.render('index', { students: allStudents, editStudent: record[0] });
-        });
+    const sql = 'SELECT * FROM students WHERE id = ?';
+    db.query(sql, [req.params.id], (err, record) => {
+        if (err || record.length === 0) return res.redirect('/');
+        res.render('edit', { student: record[0] }); // Renders edit.ejs
     });
 });
 
